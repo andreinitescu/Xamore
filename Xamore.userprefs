@@ -1,0 +1,25 @@
+﻿<Properties StartupItem="Xamore.Controls.TestApp\Xamore.Controls.TestApp.Droid\Xamore.Controls.TestApp.Droid.csproj">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Android.R32CB027R5B" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Xamore.Controls.TestApp\Xamore.Controls.TestApp\Views\BorderTestView.xaml">
+    <Files>
+      <File FileName="Xamore.Controls.Droid\Renderers\BorderRenderer (ViewRenderer).cs" Line="1" Column="1" />
+      <File FileName="Xamore.Controls.TestApp\Xamore.Controls.TestApp\Views\BorderTestView.xaml" Line="1" Column="1" />
+      <File FileName="Xamore.Controls.Droid\Renderers\BorderRenderer (IVisualElementRenderer).cs" Line="1" Column="1" />
+      <File FileName="Xamore.Controls.Droid\Renderers\BorderRenderer.cs" Line="1" Column="1" />
+      <File FileName="Xamore.Controls\Border.cs" Line="1" Column="1" />
+      <File FileName="Xamore.Controls.Droid\Renderers\BorderRendererVisual.cs" Line="1" Column="1" />
+      <File FileName="Xamore.Controls\ImageBox.cs" Line="1" Column="1" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore>
+      <Breakpoint file="D:\Projects\Xamore\Xamore.Controls.Droid\Renderers\BorderRenderer.cs" line="167" column="26" />
+      <Breakpoint file="D:\Projects\Xamore\Xamore.Controls.Droid\Renderers\BorderRenderer.cs" line="166" column="53" />
+      <Breakpoint file="D:\Projects\Xamore\Xamore.Controls.Droid\Renderers\BorderRenderer.cs" line="109" column="41" />
+      <Breakpoint file="D:\Projects\Xamore\Xamore.Controls.Droid\Renderers\BorderRenderer (VisualElement).cs" line="26" column="33" />
+      <Breakpoint file="D:\Projects\Xamore\Xamore.Controls.Droid\Renderers\BorderRenderer (ViewRenderer).cs" line="32" column="40" />
+      <Breakpoint file="D:\Projects\Xamore\Xamore.Controls.Droid\Renderers\BorderRenderer (VisualElement).cs" line="32" column="40" />
+    </BreakpointStore>
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>
