@@ -33,7 +33,12 @@ namespace Xamore.Controls.iOS.Renderers
         protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             base.OnElementPropertyChanged(sender, e);
-            if (e.PropertyName == VisualElement.BackgroundColorProperty.PropertyName || e.PropertyName == Border.StrokeProperty.PropertyName || e.PropertyName == Border.WidthProperty.PropertyName || e.PropertyName == Border.HeightProperty.PropertyName)
+            if (e.PropertyName == VisualElement.BackgroundColorProperty.PropertyName || 
+                e.PropertyName == Border.StrokeProperty.PropertyName ||
+                e.PropertyName == Border.StrokeThicknessProperty.PropertyName ||
+                e.PropertyName == Border.CornerRadiusProperty.PropertyName || 
+                e.PropertyName == Border.WidthProperty.PropertyName || 
+                e.PropertyName == Border.HeightProperty.PropertyName)
             {
                 this.SetupLayer();
             }
@@ -41,6 +46,11 @@ namespace Xamore.Controls.iOS.Renderers
 
         private void SetupLayer()
         {
+            if (Element == null || Element.Width <= 0 || Element.Height <= 0)
+            {
+                return;
+            }
+
             Layer.CornerRadius = (nfloat)Element.CornerRadius;
             if (Element.BackgroundColor != Color.Default)
             {
@@ -91,75 +101,24 @@ namespace Xamore.Controls.iOS.Renderers
                 switch (borderPosition)
                 {
                     case BorderPosition.Left:
-                        borderLayer.Frame = new CGRect(0, 0, thickness, Frame.Height);
+                        borderLayer.Frame = new CGRect(0, 0, thickness, (nfloat)Element.Height);
                         break;
                     case BorderPosition.Top:
-                        borderLayer.Frame = new CGRect(0, 0, Frame.Width, thickness);
+                        borderLayer.Frame = new CGRect(0, 0, (nfloat)Element.Width, thickness);
                         break;
                     case BorderPosition.Right:
-                        borderLayer.Frame = new CGRect(Frame.Width - thickness, 0, thickness, Frame.Height);
+                        borderLayer.Frame = new CGRect((nfloat)Element.Width - thickness, 0, thickness, (nfloat)Element.Height);
                         break;
                     case BorderPosition.Bottom:
-                        borderLayer.Frame = new CGRect(0, Frame.Height - thickness, Frame.Width, thickness);
+                        borderLayer.Frame = new CGRect(0, (nfloat)Element.Height - thickness, (nfloat)Element.Width, thickness);
                         break;
                 }
 
-                var c = Element.Stroke;
-                Debug.WriteLine("{0} {1} {2}", c.R, c.G, c.B);
+
                 borderLayer.BackgroundColor = Element.Stroke.ToCGColor();
+                borderLayer.CornerRadius = (nfloat)Element.CornerRadius;
             }
         }
     }
-
-    //public class BorderRenderer : ViewRenderer<Xamore.Controls.Border, System.Windows.Controls.Border>
-    //{
-    //    public BorderRenderer()
-    //    {
-    //        AutoPackage = false;
-    //    }
-
-    //    protected override void OnElementChanged(ElementChangedEventArgs<Border> e)
-    //    {
-    //        base.OnElementChanged(e);
-    //        base.SetNativeControl(new System.Windows.Controls.Border());
-    //        this.PackChild();
-    //        this.UpdateBorder();
-    //    }
-
-    //    protected override void OnElementPropertyChanged (object sender, PropertyChangedEventArgs e)
-    //    {
-    //        base.OnElementPropertyChanged(sender, e);
-    //        if (e.PropertyName == "Content")
-    //        {
-    //            this.PackChild();
-    //        }
-    //        else if (e.PropertyName == Frame.OutlineColorProperty.PropertyName || e.PropertyName == Frame.HasShadowProperty.PropertyName)
-    //        {
-    //            this.UpdateBorder();
-    //        }
-    //    }
-
-
-    //    private void PackChild()
-    //    {
-    //        if (base.Element.Content == null)
-    //        {
-    //            return;
-    //        }
-    //        if (base.Element.Content.GetRenderer() == null)
-    //        {
-    //            base.Element.Content.SetRenderer(RendererFactory.GetRenderer(base.Element.Content));
-    //        }
-    //        var renderer = base.Element.Content.GetRenderer() as System.Windows.UIElement;
-    //        base.Control.Child = renderer;
-    //    }
-
-    //    private void UpdateBorder()
-    //    {
-    //        base.Control.CornerRadius = new System.Windows.CornerRadius(Element.CornerRadius);
-    //        base.Control.BorderBrush = Element.Stroke.ToBrush();
-    //        base.Control.BorderThickness = Element.StrokeThickness.ToWinPhone();
-    //    }
-    //}
 }
 

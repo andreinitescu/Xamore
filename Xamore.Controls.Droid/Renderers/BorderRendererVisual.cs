@@ -24,7 +24,7 @@ namespace Xamore.Controls.Droid.Renderers
 				// choose thickest margin
 				// the content is padded so it will look like the margin is with the given thickness
 				strokeDrawable.SetStroke ((int)context.ToPixels (strokeThickness.ThickestSide()), border.Stroke.ToAndroid ());
-				strokeDrawable.SetCornerRadius ((int)context.ToPixels (border.CornerRadius));
+				strokeDrawable.SetCornerRadius ((float)border.CornerRadius);
 			}
 
 			// create background drawable
