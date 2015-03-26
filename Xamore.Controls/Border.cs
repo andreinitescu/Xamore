@@ -9,7 +9,7 @@ namespace Xamore.Controls
 {
     public class Border : ContentView
     {
-		public static readonly BindableProperty CornerRadiusProperty =
+        public static readonly BindableProperty CornerRadiusProperty =
             BindableProperty.Create<Border, double>(p => p.CornerRadius, 0);
 
         public double CornerRadius
@@ -36,16 +36,25 @@ namespace Xamore.Controls
             set { SetValue(StrokeThicknessProperty, value); }
         }
 
+        public static readonly BindableProperty IsClippedToBorderProperty =
+            BindableProperty.Create<Border, bool>(p => p.IsClippedToBorder, default(bool));
+
+        public bool IsClippedToBorder
+        {
+            get { return (bool)GetValue(IsClippedToBorderProperty); }
+            set { SetValue(IsClippedToBorderProperty, value); }
+        }
+
         // cross-platform way to take into account stroke thickness
-		protected override void LayoutChildren(double x, double y, double width, double height)
-		{
-			x += StrokeThickness.Left;
-			y += StrokeThickness.Top;
+        protected override void LayoutChildren(double x, double y, double width, double height)
+        {
+            x += StrokeThickness.Left;
+            y += StrokeThickness.Top;
 
-			width -= StrokeThickness.HorizontalThickness;
-			height -= StrokeThickness.VerticalThickness;
+            width -= StrokeThickness.HorizontalThickness;
+            height -= StrokeThickness.VerticalThickness;
 
-			base.LayoutChildren (x, y, width, height);
-		}
+            base.LayoutChildren(x, y, width, height);
+        }
     }
 }

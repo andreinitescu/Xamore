@@ -3,6 +3,7 @@ using Android.Graphics.Drawables;
 using Xamarin.Forms.Platform.Android;
 using Xamarin.Forms;
 using System.Linq;
+using Android.Graphics;
 
 namespace Xamore.Controls.Droid.Renderers
 {
@@ -31,7 +32,8 @@ namespace Xamore.Controls.Droid.Renderers
 			var backgroundDrawable = new GradientDrawable ();
 
 			// set background drawable color based on Border's background color
-			backgroundDrawable.SetColor (border.BackgroundColor.ToAndroid ());
+		    backgroundDrawable.SetColor (border.BackgroundColor.ToAndroid ());
+            backgroundDrawable.SetCornerRadius((float)border.CornerRadius);
 
 			if (strokeDrawable != null) {
 				// if stroke drawable exists, create a layer drawable containing both stroke and background drawables
@@ -60,39 +62,26 @@ namespace Xamore.Controls.Droid.Renderers
 			}.Max();
 		}
 
-		/* 
-		 * if (e.PropertyName == Border.ClipToBoundsProperty.PropertyName)
-            {
-                OnClipToBoundsChanged();
-            }
-
-
-        void OnClipToBoundsChanged()
+        public static void SetClipPath(this BorderRenderer br, Canvas canvas)
         {
-            SetWillNotDraw(BorderView.ClipToBounds);
-            Invalidate();
-        }
-
-		 * protected override void OnDraw(Canvas canvas)
-        {
-            base.OnDraw(canvas);
-            SetClipPath(canvas);
-        }
-        
-        void SetClipPath(Canvas canvas)
-        {
-            return;
             var clipPath = new Path();
-            float padding = (float)MaxStrokeThickness();// radius / 2;
-            float radius = (float)BorderView.CornerRadius - padding / 2;// + MaxStrokeThickness());
+            //float padding = br;// radius / 2;
+            float radius = (float)br.Element.CornerRadius - br.Context.ToPixels((float)br.Element.Padding.ThickestSide());// - padding / 2; // + MaxStrokeThickness());
 
-            int w = this.Width;
-            int h = this.Height;
-            clipPath.AddRoundRect(new RectF(padding, padding, w - padding, h - padding), radius, radius, Path.Direction.Cw);
-            //canvas.ClipRect(5, 5, 5, 5);
+            int w = (int)br.Width;
+            int h = (int)br.Height;
+                        
+            clipPath.AddRoundRect(new RectF(
+                br.ViewGroup.PaddingLeft, 
+                br.ViewGroup.PaddingTop,
+                w - br.ViewGroup.PaddingRight,
+                h - br.ViewGroup.PaddingBottom),
+                radius, 
+                radius, 
+                Path.Direction.Cw);
+
             canvas.ClipPath(clipPath);
         }
-		*/
 	}
 }
 

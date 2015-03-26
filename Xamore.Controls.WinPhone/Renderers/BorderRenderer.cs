@@ -7,6 +7,7 @@ using Xamore.Controls.WinPhone;
 using Xamore.Controls.WinPhone.Renderers;
 using System.Diagnostics;
 using System.Windows.Controls;
+using System.Windows.Media;
 
 [assembly: ExportRendererAttribute(typeof(Xamore.Controls.Border), typeof(Xamore.Controls.WinPhone.Renderers.BorderRenderer))]
 
@@ -24,7 +25,7 @@ namespace Xamore.Controls.WinPhone.Renderers
             base.OnElementChanged(e);
             SetNativeControl(new System.Windows.Controls.Border());
             PackChild();
-            UpdateBorder();
+            UpdateControl();
         }
 
 		protected override void OnElementPropertyChanged (object sender, PropertyChangedEventArgs e)
@@ -36,9 +37,10 @@ namespace Xamore.Controls.WinPhone.Renderers
             }
             else if (e.PropertyName == Border.StrokeProperty.PropertyName || 
                      e.PropertyName == Border.StrokeThicknessProperty.PropertyName ||
-                     e.PropertyName == Border.CornerRadiusProperty.PropertyName)
+                     e.PropertyName == Border.CornerRadiusProperty.PropertyName ||
+                     e.PropertyName == Border.PaddingProperty.PropertyName)
             {
-                UpdateBorder();
+                UpdateControl();
             }
 		}
 
@@ -47,7 +49,7 @@ namespace Xamore.Controls.WinPhone.Renderers
         {
             if (Control != null)
             {
-                Control.Background = (this.Element.BackgroundColor != Color.Default ? this.Element.BackgroundColor.ToBrush() : base.Background);
+                Control.Background = (this.Element.BackgroundColor != Xamarin.Forms.Color.Default ? this.Element.BackgroundColor.ToBrush() : base.Background);
             }
         }
 
@@ -65,11 +67,23 @@ namespace Xamore.Controls.WinPhone.Renderers
             Control.Child = renderer;
         }
 
-        private void UpdateBorder()
+        private void UpdateControl()
         {
             Control.CornerRadius = new System.Windows.CornerRadius(Element.CornerRadius);
             Control.BorderBrush = Element.Stroke.ToBrush();
             Control.BorderThickness = Element.StrokeThickness.ToWinPhone();
+            Control.Padding = Element.Padding.ToWinPhone();
+            
+            if (Element.IsClippedToBorder)
+            {
+                // var size = Control.Child.RenderSize;
+                Control.Child.Clip = new RectangleGeometry()
+                {
+                    Rect = new System.Windows.Rect(0, 0, 400, 400), // just testing with some values for now
+                    RadiusX = Element.CornerRadius,
+                    RadiusY = Element.CornerRadius
+                };
+            }
         }
     }
 }

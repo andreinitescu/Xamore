@@ -8,12 +8,19 @@
              BackgroundColor="Green">
   <Grid>
     <controls:Border x:Name="Border"
-                     Padding="10,20,30,40"
+                     Padding="10"
                      BackgroundColor="Yellow"
                      Stroke="Black"
-                     CornerRadius="3"
-                     StrokeThickness="10,20,30,40">
-      <StackLayout BackgroundColor="Blue"
+                     CornerRadius="300"
+                     StrokeThickness="10"
+                     IsClippedToBorder="True">
+      <!--<controls:Border x:Name="Border"
+                       Padding="10,20,30,40"
+                       BackgroundColor="Yellow"
+                       Stroke="Black"
+                       CornerRadius="3"
+                       StrokeThickness="10,20,30,40">-->
+        <StackLayout BackgroundColor="Blue"
                    Padding="0">
         <Button Text="Button"
                 BackgroundColor="Fuchsia" />
